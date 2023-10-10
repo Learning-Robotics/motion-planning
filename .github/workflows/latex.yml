@@ -9,7 +9,8 @@ jobs:
         name: "Compile source files"
         runs-on: ubuntu-latest
         env:
-            TEXFILE: slides
+            SRC: slides
+            PDF: slides.pdf
 
         steps:
           - name: "Checkout sources"
@@ -18,23 +19,24 @@ jobs:
           - name: "Install TeX distribution"
             run: |
                 sudo apt-get update
-                sudo apt-get install texlive texlive-publishers texlive-science latexmk cm-super
+                sudo apt-get install texlive texlive-bibtex-extra texlive-fonts-extra texlive-latex-extra texlive-publishers texlive-science texlive-xetex
+                sudo apt-get install biber
 
           - name: "Compile LaTeX"
             working-directory: .
             run: |
-                pdflatex ${{ env.TEXFILE }}
-                bibtex ${{ env.TEXFILE }}
-                pdflatex ${{ env.TEXFILE }}
-                pdflatex ${{ env.TEXFILE }}
+                xelatex -interaction nonstopmode -halt-on-error -file-line-error -shell-escape ${{ env.SRC }}
+                biber ${{ env.SRC }}
+                xelatex -interaction nonstopmode -halt-on-error -file-line-error -shell-escape ${{ env.SRC }}
+                xelatex -interaction nonstopmode -halt-on-error -file-line-error -shell-escape ${{ env.SRC }}
 
           - name: "Prepare artifacts directory"
-            run: mkdir -p artifacts && mv ${{ env.TEXFILE }}.pdf ./artifacts/
+            run: mkdir -p artifacts && mv ${{ env.PDF }} ./artifacts/
 
           - name: "Upload artifacts"
             uses: actions/upload-artifact@v3
             with:
-                name: ${{ env.TEXFILE }}.pdf
+                name: ${{ env.PDF }}
                 path: ./artifacts
 
     deploy:
