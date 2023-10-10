@@ -40,6 +40,7 @@ jobs:
                 path: ./artifacts
 
     deploy:
+        name: "Deploy PDF to GitHub Pages"
         needs: [compile]
         runs-on: ubuntu-latest
 
@@ -60,5 +61,5 @@ jobs:
             with:
                 github_token: ${{ secrets.GITHUB_TOKEN }}
                 publish_dir: ./deploy
-                publish_branch: latex
+                publish_branch: gh-pages
                 force_orphan: true
