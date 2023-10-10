@@ -1,0 +1,135 @@
+\documentclass[9pt, aspectratio=169]{beamer}
+
+\usepackage{amsmath}
+\usepackage{booktabs}
+\usepackage{color}
+\usepackage{csquotes}
+\usepackage{fontspec}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Theme
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usetheme[progressbar=frametitle]{metropolis}
+\metroset{block=fill}
+\metroset{sectionpage=progressbar}
+\usefonttheme{professionalfonts}
+\usepackage{theme/beamercolorthememetropolisinria}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Syntax highlighting
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{minted}
+\definecolor{codebg}{rgb}{0.95, 0.955, 0.96}
+
+\setminted[bash]{
+    autogobble,
+    baselinestretch=1.2,
+    bgcolor=codebg,
+    fontsize=\footnotesize,
+    framesep=50mm,
+    xleftmargin=1em,
+    xrightmargin=1em,
+}
+
+\setminted[python]{
+    autogobble,
+    baselinestretch=1.2,
+    bgcolor=codebg,
+    fontsize=\footnotesize,
+    framesep=50mm,
+    xleftmargin=0.5em,
+    xrightmargin=0.5em,
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Bibliography
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage[
+    style=alphabetic,
+    maxbibnames=99,
+    maxcitenames=99,
+]{biblatex}
+\addbibresource{refs.bib}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Footnotes
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand\blfootcite[1]{%
+    \invisible<1>{%
+        {\color{white} \footfullcite{#1}}%
+    }%
+}
+
+\newcommand\blfootcitetext[1]{%
+    \invisible<1>{%
+        \addtocounter{footnote}{-1}% assumes a footnotemark
+        {\color{white} \footfullcite{#1}}%
+    }%
+}
+
+\newcommand\blfootnote[1]{%
+  \begingroup
+  \renewcommand\thefootnote{}%
+  \footnote{#1}%
+  \addtocounter{footnote}{-1}%
+  \endgroup
+}
+
+\newcommand\blfootnotetext[1]{%
+  \begingroup
+  \footnotetext{#1}%
+  \endgroup
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Abbreviations
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\def\eg{{\emph{e.g.}}}
+\def\etal{{\emph{et al.}}}
+\def\ie{{\emph{i.e.}}}
+\def\xid{\dot{\xi}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Metadata
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\title{
+    Motion planning
+}
+
+\author{Yann de Mont-Marin, St\'ephane Caron}
+\date{\today}
+\institute{Inria--\'{E}cole normale sup\'{e}rieure}
+
+\begin{document}
+
+\maketitle
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Outline}
+    \tableofcontents
+\end{frame}
+
+\section{Configuration space and workspace}
+
+\section{Obstacles and collisions}
+
+\section{Path and roadmap planning}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section*{Bibliography}
+
+\renewcommand*{\bibfont}{\footnotesize}
+\setbeamertemplate{bibliography item}{\insertbiblabel}
+\begin{frame}[allowframebreaks]{References}
+    \printbibliography[heading=none]
+\end{frame}
+
+\end{document}
