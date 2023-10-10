@@ -1,2 +1,3 @@
-# motion-planning
-Course on motion planning
+# Motion planning
+
+Lecture notes on motion planning.
