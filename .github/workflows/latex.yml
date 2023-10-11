@@ -56,8 +56,9 @@ jobs:
           - name: "Prepare deployment directory"
             run: mkdir -p deploy && mv artifacts/*/* deploy
 
-          - name: "Deploy to branch"
+          - name: "Deploy to GitHub Pages"
             uses: peaceiris/actions-gh-pages@v3
+            if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
             with:
                 github_token: ${{ secrets.GITHUB_TOKEN }}
                 publish_dir: ./deploy
